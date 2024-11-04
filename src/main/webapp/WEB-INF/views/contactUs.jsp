@@ -8,23 +8,6 @@
 	href="${pageContext.request.contextPath}/css/style.css">
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-<style>
-.social-links {
-	margin-top: 20px;
-	text-align: center;
-}
-
-.social-links img {
-	width: 40px; /* Set icon size */
-	height: 40px;
-	margin: 0 15px;
-	transition: transform 0.3s; /* Transition effect */
-}
-
-.social-links img:hover {
-	transform: scale(1.1); /* Scale effect on hover */
-}
-</style>
 </head>
 <body>
 	<div class="container">
@@ -85,6 +68,26 @@
 			</a>
 		</div>
 	</div>
+	<!-- Modal for Success Notification -->
+	<div class="modal fade" id="success_Notification" tabindex="-1"
+		role="dialog" aria-labelledby="successModalLabel" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered" role="document">
+			<div class="modal-content">
+				<div class="modal-body">
+					<div class="text-center">
+						<img
+							src="${pageContext.request.contextPath}/static/images/source.gif"
+							style="width: 140px;">
+						<h4 class="refunded_body">Your contact sent successfully!</h4>
+						<div class="text-center">
+							<button id="confirmButton" type="button" class="btn btn-success"
+								onclick="redirectToAddContactUs();">OK</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 
 	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 	<script
@@ -113,7 +116,7 @@ function submitContactForm(event) {
     })
     .then(response => {
         if (response.ok) {
-            alert('Your message has been sent successfully!');
+        	showSuccessModal();
         } else {
             alert('Failed to send message. Please try again later.');
         }
@@ -122,6 +125,16 @@ function submitContactForm(event) {
         console.error('Error:', error);
         alert('An error occurred while sending your message. Please try again later.');
     });
+}
+
+function showSuccessModal() {
+	// Show the success modal
+	$('#success_Notification').modal('show');
+}
+
+function redirectToAddContactUs() {
+	// Redirect to the employee management page after clicking OK
+	window.location.href = '${pageContext.request.contextPath}/employees/management';
 }
 </script>
 </body>
